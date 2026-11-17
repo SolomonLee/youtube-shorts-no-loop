@@ -4,6 +4,20 @@
 
 Chrome 擴充功能。YouTube Shorts 播完後停止自動重播；點影片畫面，或按影片正中央的「↻ 重新播放」，都可以從頭再看一次。往下滑切換另一支 Shorts，仍可正常播放。一般 YouTube 影片不套用此功能。
 
+## 測試截圖
+
+以下為 1.2.0 在獨立 Chromium 測試設定檔中執行擴充功能的實際截圖。
+
+| English | 繁體中文 |
+| --- | --- |
+| ![英文設定視窗，含語言選單與已開啟的自動停止開關](security/evidence/2026-11-17-language/BR-11-popup-en.png) | ![繁體中文設定視窗，含語言選單與已開啟的自動停止開關](security/evidence/2026-11-17-language/BR-11-popup-zh-TW.png) |
+
+影片播完後，重播按鈕對齊影片中央：
+
+![自行產生的測試影片播完後，中央顯示重新播放按鈕](security/evidence/2026-11-17-language/BR-02-native-ended.png)
+
+播放截圖使用自行產生的影片與受控測試頁面，並非真實 YouTube。截圖用於展示介面；檢查結果與檔案一致性請參閱 [瀏覽器報告及 SHA-256](security/evidence/2026-11-17-language/) 和 [驗證範圍與限制](security/ASSESSMENT-2026-11-17-i18n.md)。
+
 ## 安裝
 
 1. 在 Chrome 網址列輸入 `chrome://extensions`。

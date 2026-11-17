@@ -1,0 +1,234 @@
+{
+  "schema": 1,
+  "assessedCommit": "8658ec45aff09efe58275b938ddf9c1d38837b88",
+  "extensionVersion": "1.2.0",
+  "startedAtUtc": "2026-11-17T11:08:16.263Z",
+  "sourceHashes": {
+    "manifest.json": "6a295ff8252f48cbc699eaf4aab5b7aa94e83d8d1a4e1cfb42795b4ab0877d11",
+    "content.js": "13f7626f6233d4c4c9cb4a334bbb650c0202f2186e1340bdc4683b97c29da610",
+    "content.css": "bae4dd3cafdcdd2768090aa741fd3d4c361773871b2fc3a4a01133b696a2d8a1",
+    "popup.html": "44b9bc608777a4143852afc20878a47612a90d31e05d549bc46f8360aa8a27a3",
+    "popup.css": "4246dc406776ef333707339dcd381a2d3658ecb68a3d0d514ac8bbed1c9b6156",
+    "popup.js": "1e61a161cc3fa9821d022acdfc5e0a188a66700aac2e7d1c1f346ebd593836da",
+    ".github/workflows/test.yml": "70c162fc2472aeaba1d5490c235f896705a1483405ef1570b22048249632bd1f"
+  },
+  "harnessHashes": {
+    "tests/security/browser.cjs": "debc4e4384f6fe48ec5972c4a52a2af7192df1bb6639acd2fb53ef126f6f0e59",
+    "tests/security/fixtures/player.html": "1cc5b2697a8abbecd94f2115529200b4cd91c18ac7c670ec1203141bea0d28d9",
+    "tests/security/fixtures/clip.webm": "f9dca23b71721d2f711b168bbc4f766e6e7c7b53fe2651983d626f8fd4f61af4"
+  },
+  "node": "v22.18.0",
+  "playwright": "1.62.1",
+  "platform": "win32",
+  "headless": true,
+  "chromiumSandboxRequested": true,
+  "syntheticResponses": true,
+  "checks": [
+    {
+      "id": "BR-01",
+      "name": "Native extension loading and isolated execution",
+      "status": "pass",
+      "durationMs": 90,
+      "details": {
+        "identity": {
+          "id": "blpdedbnpfioiecadllflkcbdhnmpabj",
+          "version": "1.2.0",
+          "permissions": [
+            "storage"
+          ]
+        },
+        "loopDisabled": true
+      }
+    },
+    {
+      "id": "BR-02",
+      "name": "Natural media end and one explicit replay",
+      "status": "pass",
+      "durationMs": 2780,
+      "details": {
+        "first": {
+          "paused": true,
+          "ended": true,
+          "time": 1.166
+        },
+        "events": [
+          {
+            "type": "play",
+            "trusted": true,
+            "time": 0.000225
+          },
+          {
+            "type": "playing",
+            "trusted": true,
+            "time": 0.000246
+          },
+          {
+            "type": "pause",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "ended",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "play",
+            "trusted": true,
+            "time": 0
+          },
+          {
+            "type": "playing",
+            "trusted": true,
+            "time": 0.002456
+          },
+          {
+            "type": "pause",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "ended",
+            "trusted": true,
+            "time": 1.166
+          }
+        ],
+        "screenshot": "BR-02-native-ended.png"
+      }
+    },
+    {
+      "id": "BR-09",
+      "name": "Popup switch restores automatic replay and persists across reload",
+      "status": "pass",
+      "durationMs": 3133,
+      "details": {
+        "disabledSurvivedReload": true,
+        "enabledAgain": true,
+        "multipleTabs": true,
+        "screenshot": "BR-09-popup-disabled.png"
+      }
+    },
+    {
+      "id": "BR-10",
+      "name": "Replay button tracks the video center and the video surface replays",
+      "status": "pass",
+      "durationMs": 2751,
+      "details": {
+        "centeredAfterLayoutChange": true,
+        "nativeEnds": 2
+      }
+    },
+    {
+      "id": "BR-11",
+      "name": "Language selection persists and updates replay buttons across tabs",
+      "status": "pass",
+      "durationMs": 529,
+      "details": {
+        "persisted": true,
+        "multipleTabs": true,
+        "playbackUnchanged": true,
+        "screenshots": [
+          "BR-11-popup-en.png",
+          "BR-11-popup-zh-TW.png"
+        ]
+      }
+    },
+    {
+      "id": "BR-03",
+      "name": "Nonmatching origin and regular watch page are untouched",
+      "status": "pass",
+      "durationMs": 207,
+      "details": [
+        {
+          "url": "https://example.invalid/shorts/security-fixture",
+          "loop": true,
+          "buttons": 0
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=security-fixture",
+          "loop": true,
+          "buttons": 0
+        }
+      ]
+    },
+    {
+      "id": "BR-04",
+      "name": "Host-page prototype overrides do not hijack isolated script methods",
+      "status": "pass",
+      "durationMs": 56,
+      "details": {
+        "event": "synthetic ended",
+        "attackTriggered": false,
+        "pageState": "page-owned-marker",
+        "leakedVideoReference": false
+      }
+    },
+    {
+      "id": "BR-05",
+      "name": "Stale replay rejection cannot lock a new route",
+      "status": "pass",
+      "durationMs": 83,
+      "details": {
+        "faultInjection": "CDP in the isolated extension world, deferred rejection of play()",
+        "paused": false,
+        "buttons": 0
+      }
+    },
+    {
+      "id": "BR-06",
+      "name": "Forged messages and navigation payloads cause no external request",
+      "status": "pass",
+      "durationMs": 57,
+      "details": {
+        "syntheticEvents": true,
+        "newRequests": [],
+        "attackerRequests": 0,
+        "extensionInitiatedRequests": 0
+      }
+    },
+    {
+      "id": "BR-07",
+      "name": "Measure repeated unrelated DOM changes (PERF-01 evidence)",
+      "status": "pass",
+      "durationMs": 467,
+      "details": {
+        "mutationBatches": 60,
+        "elapsedMs": 423.1000000014901,
+        "fullVideoQueries": 60,
+        "scriptDurationDeltaSeconds": 0.0027559999999999998,
+        "interpretation": "Confirms repeated scans; not an extension-only CPU benchmark or proof of user-visible slowdown."
+      }
+    },
+    {
+      "id": "BR-08",
+      "name": "Reproduce inactive-video button takeover (FUNC-01, conditional)",
+      "status": "reproduced",
+      "durationMs": 73,
+      "details": {
+        "finding": "FUNC-01",
+        "reproduced": true,
+        "buttonBefore": "current",
+        "buttonAfter": "old",
+        "trigger": "Synthetic ended dispatched to a hidden video on the controlled fixture.",
+        "limitation": "Does not establish that live YouTube generates this event sequence; no privilege escalation or exfiltration shown.",
+        "screenshot": "BR-08-inactive-video.png"
+      }
+    },
+    {
+      "id": "LIVE-01",
+      "name": "Live signed-out YouTube smoke test",
+      "status": "not-run",
+      "reason": "Set LIVE_YOUTUBE=1; controlled fixtures do not count as a live-site test."
+    }
+  ],
+  "limitations": [
+    "Controlled tests use real Chromium and the unmodified extension, but HTTPS page responses are test fixtures, not YouTube.",
+    "Synthetic DOM events and CDP fault injection are explicitly identified per check.",
+    "Network observation covers requests surfaced by Playwright/CDP, not OS-level packet capture.",
+    "This is a scoped assessment, not a certification or proof of absence of vulnerabilities."
+  ],
+  "browser": "148.0.7778.96",
+  "browserExecutable": "chrome.exe",
+  "extensionId": "blpdedbnpfioiecadllflkcbdhnmpabj",
+  "finishedAtUtc": "2026-11-17T11:08:27.081Z"
+}

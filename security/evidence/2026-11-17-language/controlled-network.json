@@ -1,0 +1,969 @@
+{
+  "requests": [
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://example.invalid",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://example.invalid",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://example.invalid",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Document",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Media",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "null",
+      "method": "GET",
+      "type": "Image",
+      "initiators": []
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "method": "GET",
+      "type": "Other",
+      "initiators": []
+    }
+  ],
+  "attemptedRequests": [
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/second-tab",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/language-tab",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/language-tab",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://example.invalid",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://example.invalid",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/watch",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/shorts/security-fixture",
+      "type": "document"
+    },
+    {
+      "origin": "https://www.youtube.com",
+      "pathname": "/security-fixture.webm",
+      "type": "media"
+    }
+  ],
+  "unknownOrigins": []
+}

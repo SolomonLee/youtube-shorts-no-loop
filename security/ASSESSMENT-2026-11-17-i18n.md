@@ -18,4 +18,4 @@
 
 瀏覽器測試使用受控 HTTPS 回應與自行產生的影片，不是真實 YouTube。此次未重跑真實網站測試；上一次 1.1.0 的真實 YouTube 測試在等待影片就緒時受阻。現有隱藏影片事件問題與效能限制見 [1.1.0 驗證紀錄](ASSESSMENT-2026-11-17.md)。
 
-瀏覽器測試以未提交的 1.2.0 工作目錄執行，結果另記錄執行時檔案雜湊，保存在忽略提交的 `dist/security/language-1.2.0-verified/`。重跑方式見 [SECURITY.md](../SECURITY.md)。
+瀏覽器測試以未提交的 1.2.0 工作目錄執行，結果另記錄執行時檔案雜湊。原始結果產生於忽略提交的 `dist/security/language-1.2.0-verified/`，現已將截圖、瀏覽器報告、受控網路摘要及 SHA-256 原樣保存於 [2026-11-17-language](evidence/2026-11-17-language/)。報告的 `assessedCommit` 為執行時的基準提交，不代表該提交本身已包含當時尚未提交的語言功能；請使用報告中的檔案雜湊辨識受測內容。重跑方式見 [SECURITY.md](../SECURITY.md)。

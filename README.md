@@ -6,6 +6,20 @@ A Chrome extension that stops YouTube Shorts from automatically replaying. When 
 
 Scrolling to another Short works normally. Regular YouTube videos are unaffected.
 
+## Test screenshots
+
+Version 1.2.0, captured from the extension running in an isolated Chromium test profile.
+
+| English | Traditional Chinese |
+| --- | --- |
+| ![English popup with language selection and auto-stop enabled](security/evidence/2026-11-17-language/BR-11-popup-en.png) | ![Traditional Chinese popup with language selection and auto-stop enabled](security/evidence/2026-11-17-language/BR-11-popup-zh-TW.png) |
+
+The replay button appears at the video's center after playback ends:
+
+![Centered replay button after the generated test video ends](security/evidence/2026-11-17-language/BR-02-native-ended.png)
+
+The playback screenshot uses a generated test video on a controlled fixture, not live YouTube. Screenshots illustrate the UI; the [browser report and SHA-256 hashes](security/evidence/2026-11-17-language/) record the checks and file integrity. See the [verification scope and limitations](security/ASSESSMENT-2026-11-17-i18n.md).
+
 ## Install
 
 1. Download the repository using **Code → Download ZIP**, then extract it.

@@ -1,0 +1,218 @@
+{
+  "schema": 1,
+  "assessedCommit": "0e7059bbe38faede3305fac82f58d2b282c749c5",
+  "extensionVersion": "1.0.1",
+  "startedAtUtc": "2026-10-21T12:19:57.319Z",
+  "sourceHashes": {
+    "manifest.json": "b95b0c10fd21736225508f6370009ae2aa0ce78e902627e3b7a9df8d264203af",
+    "content.js": "566e88f351c6ec99ce8fc96fb9820ccbbf5661ecfe492657418074e3e8352bff",
+    "content.css": "d6f8fb4432f0ba58e96deafbb2f644220e65b8618d3b28e50e897174a69c287a",
+    ".github/workflows/test.yml": "63eeca261cf79314da3ce59df66693b5f208a89ced858a889bd564a7b50b0343"
+  },
+  "harnessHashes": {
+    "tests/security/browser.cjs": "04b4064352c2d7b42b80dbd3d224bd5e84290c134935f8486837f9f342ae9413",
+    "tests/security/fixtures/player.html": "1cc5b2697a8abbecd94f2115529200b4cd91c18ac7c670ec1203141bea0d28d9",
+    "tests/security/fixtures/clip.webm": "f9dca23b71721d2f711b168bbc4f766e6e7c7b53fe2651983d626f8fd4f61af4"
+  },
+  "node": "v22.18.0",
+  "playwright": "1.62.1",
+  "platform": "win32",
+  "headless": true,
+  "chromiumSandboxRequested": true,
+  "syntheticResponses": true,
+  "checks": [
+    {
+      "id": "BR-01",
+      "name": "Native extension loading and isolated execution",
+      "status": "pass",
+      "durationMs": 149,
+      "details": {
+        "identity": {
+          "id": "blpdedbnpfioiecadllflkcbdhnmpabj",
+          "version": "1.0.1",
+          "permissions": []
+        },
+        "loopDisabled": true
+      }
+    },
+    {
+      "id": "BR-02",
+      "name": "Natural media end and one explicit replay",
+      "status": "pass",
+      "durationMs": 2763,
+      "details": {
+        "first": {
+          "paused": true,
+          "ended": true,
+          "time": 1.166
+        },
+        "events": [
+          {
+            "type": "play",
+            "trusted": true,
+            "time": 0.000344
+          },
+          {
+            "type": "playing",
+            "trusted": true,
+            "time": 0.000375
+          },
+          {
+            "type": "pause",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "ended",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "play",
+            "trusted": true,
+            "time": 0
+          },
+          {
+            "type": "playing",
+            "trusted": true,
+            "time": 0.00193
+          },
+          {
+            "type": "pause",
+            "trusted": true,
+            "time": 1.166
+          },
+          {
+            "type": "ended",
+            "trusted": true,
+            "time": 1.166
+          }
+        ],
+        "screenshot": "BR-02-native-ended.png"
+      }
+    },
+    {
+      "id": "BR-03",
+      "name": "Nonmatching origin and regular watch page are untouched",
+      "status": "pass",
+      "durationMs": 189,
+      "details": [
+        {
+          "url": "https://example.invalid/shorts/security-fixture",
+          "loop": true,
+          "buttons": 0
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=security-fixture",
+          "loop": true,
+          "buttons": 0
+        }
+      ]
+    },
+    {
+      "id": "BR-04",
+      "name": "Host-page prototype overrides do not hijack isolated script methods",
+      "status": "pass",
+      "durationMs": 54,
+      "details": {
+        "event": "synthetic ended",
+        "attackTriggered": false,
+        "pageState": "page-owned-marker",
+        "leakedVideoReference": false
+      }
+    },
+    {
+      "id": "BR-05",
+      "name": "Stale replay rejection cannot lock a new route",
+      "status": "pass",
+      "durationMs": 88,
+      "details": {
+        "faultInjection": "CDP in the isolated extension world, deferred rejection of play()",
+        "paused": false,
+        "buttons": 0
+      }
+    },
+    {
+      "id": "BR-06",
+      "name": "Forged messages and navigation payloads cause no external request",
+      "status": "pass",
+      "durationMs": 53,
+      "details": {
+        "syntheticEvents": true,
+        "newRequests": [],
+        "attackerRequests": 0,
+        "extensionInitiatedRequests": 0
+      }
+    },
+    {
+      "id": "BR-07",
+      "name": "Measure repeated unrelated DOM changes (PERF-01 evidence)",
+      "status": "pass",
+      "durationMs": 460,
+      "details": {
+        "mutationBatches": 60,
+        "elapsedMs": 417.39999999990687,
+        "fullVideoQueries": 60,
+        "scriptDurationDeltaSeconds": 0.002401,
+        "interpretation": "Confirms repeated scans; not an extension-only CPU benchmark or proof of user-visible slowdown."
+      }
+    },
+    {
+      "id": "BR-08",
+      "name": "Reproduce inactive-video button takeover (FUNC-01, conditional)",
+      "status": "reproduced",
+      "durationMs": 66,
+      "details": {
+        "finding": "FUNC-01",
+        "reproduced": true,
+        "buttonBefore": "current",
+        "buttonAfter": "old",
+        "trigger": "Synthetic ended dispatched to a hidden video on the controlled fixture.",
+        "limitation": "Does not establish that live YouTube generates this event sequence; no privilege escalation or exfiltration shown.",
+        "screenshot": "BR-08-inactive-video.png"
+      }
+    },
+    {
+      "id": "LIVE-01",
+      "name": "Live signed-out YouTube smoke test",
+      "status": "pass",
+      "details": {
+        "statusCode": 200,
+        "url": "https://www.youtube.com/shorts/VWiUVGX47j8",
+        "initial": {
+          "loop": false,
+          "paused": false,
+          "duration": 65.941
+        },
+        "ended": [
+          {
+            "trusted": true,
+            "time": 65.941
+          }
+        ],
+        "worldOrigin": "chrome-extension://blpdedbnpfioiecadllflkcbdhnmpabj",
+        "videoSelection": {
+          "index": 0,
+          "inShorts": true,
+          "readyState": 4,
+          "visible": true,
+          "width": 374,
+          "height": 664
+        },
+        "extensionInitiatedRequests": [],
+        "screenshot": "LIVE-01-signed-out-youtube.png",
+        "scope": "One public Short, seek near end, no account login, no endpoint attack."
+      }
+    }
+  ],
+  "limitations": [
+    "Controlled tests use real Chromium and the unmodified extension, but HTTPS page responses are test fixtures, not YouTube.",
+    "Synthetic DOM events and CDP fault injection are explicitly identified per check.",
+    "Network observation covers requests surfaced by Playwright/CDP, not OS-level packet capture.",
+    "This is a scoped assessment, not a certification or proof of absence of vulnerabilities."
+  ],
+  "browser": "148.0.7778.96",
+  "browserExecutable": "chrome.exe",
+  "extensionId": "blpdedbnpfioiecadllflkcbdhnmpabj",
+  "finishedAtUtc": "2026-10-21T12:20:07.914Z"
+}

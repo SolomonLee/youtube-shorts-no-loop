@@ -1,0 +1,88 @@
+{
+  "collectedAtUtc": "2026-10-21T12:25:52.831Z",
+  "assessedCommit": "0e7059bbe38faede3305fac82f58d2b282c749c5",
+  "extensionVersion": "1.0.1",
+  "collectorSha256": "58edcc980b5efb22de936e3fcc7adecfc108190c1152bfc48d7f2faa7f416e10",
+  "staticTestSha256": "7a020f6c3718258e6ebc56e49a44bf812b17ff4dc58835eed891afeb0ae881a0",
+  "dependencyLockSha256": "3a167fa7001dd2e0cdbd009800426268647e4db011409b637125eb06ea62c886",
+  "workflowSha256": "63eeca261cf79314da3ce59df66693b5f208a89ced858a889bd564a7b50b0343",
+  "workflowInventory": [
+    {
+      "file": "security.yml",
+      "sha256": "af88d7797af97f5de499944c252697ea3a3ef339becfe36bab7600c8d1999f61",
+      "contentsReadOnly": true,
+      "actions": [
+        {
+          "reference": "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "pinnedToCommit": true
+        },
+        {
+          "reference": "actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "pinnedToCommit": true
+        }
+      ]
+    },
+    {
+      "file": "test.yml",
+      "sha256": "63eeca261cf79314da3ce59df66693b5f208a89ced858a889bd564a7b50b0343",
+      "contentsReadOnly": true,
+      "actions": [
+        {
+          "reference": "actions/checkout@v4",
+          "pinnedToCommit": false
+        },
+        {
+          "reference": "actions/setup-node@v4",
+          "pinnedToCommit": false
+        }
+      ]
+    }
+  ],
+  "unitTests": {
+    "exitCode": 0,
+    "passed": 18,
+    "failed": 0
+  },
+  "manifest": {
+    "manifest_version": 3,
+    "name": "Shorts 播完就停",
+    "version": "1.0.1",
+    "description": "讓 YouTube Shorts 播完後停止重複播放，想再看時按重新播放。",
+    "content_scripts": [
+      {
+        "matches": [
+          "https://www.youtube.com/*",
+          "https://youtube.com/*"
+        ],
+        "js": [
+          "content.js"
+        ],
+        "css": [
+          "content.css"
+        ],
+        "run_at": "document_start"
+      }
+    ]
+  },
+  "ci": {
+    "actions": [
+      {
+        "reference": "actions/checkout@v4",
+        "pinnedToCommit": false
+      },
+      {
+        "reference": "actions/setup-node@v4",
+        "pinnedToCommit": false
+      }
+    ],
+    "contentsReadOnly": true,
+    "persistCredentialsFalseExplicit": false
+  },
+  "historySecretPatternScan": {
+    "commits": 1,
+    "fileVersions": 9,
+    "binaryVersionsSkipped": 0,
+    "hits": [],
+    "limitation": "Text pattern matching only; skips NUL-containing binary files. Does not prove absence of secrets or inspect local browser/CLI credentials."
+  }
+}

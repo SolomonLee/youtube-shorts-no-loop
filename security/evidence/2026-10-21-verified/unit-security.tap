@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: plays through to ended, blocks automatic restart, permits explicit replay
+ok 1 - plays through to ended, blocks automatic restart, permits explicit replay
+  ---
+  duration_ms: 1.729
+  type: 'test'
+  ...
+# Subtest: switching Shorts clears completed state even when video element is reused
+ok 2 - switching Shorts clears completed state even when video element is reused
+  ---
+  duration_ms: 0.7102
+  type: 'test'
+  ...
+# Subtest: changing source clears completion state
+ok 3 - changing source clears completion state
+  ---
+  duration_ms: 0.4836
+  type: 'test'
+  ...
+# Subtest: regular watch pages are untouched, including after leaving Shorts
+ok 4 - regular watch pages are untouched, including after leaving Shorts
+  ---
+  duration_ms: 0.5848
+  type: 'test'
+  ...
+# Subtest: removes loop again if YouTube restores it
+ok 5 - removes loop again if YouTube restores it
+  ---
+  duration_ms: 0.4542
+  type: 'test'
+  ...
+# Subtest: detached videos release their listeners and replay button
+ok 6 - detached videos release their listeners and replay button
+  ---
+  duration_ms: 0.446
+  type: 'test'
+  ...
+# Subtest: failed manual playback leaves a retry button
+ok 7 - failed manual playback leaves a retry button
+  ---
+  duration_ms: 0.5278
+  type: 'test'
+  ...
+# Subtest: rejected replay from a previous Short cannot stop the next Short
+ok 8 - rejected replay from a previous Short cannot stop the next Short
+  ---
+  duration_ms: 0.5323
+  type: 'test'
+  ...
+# Subtest: rejected replay cannot restore its button after leaving Shorts
+ok 9 - rejected replay cannot restore its button after leaving Shorts
+  ---
+  duration_ms: 0.5514
+  type: 'test'
+  ...
+# Subtest: returning to the same Short does not revive a previous replay request
+ok 10 - returning to the same Short does not revive a previous replay request
+  ---
+  duration_ms: 1.1256
+  type: 'test'
+  ...
+# Subtest: rejected replay checks the URL before navigation events arrive
+ok 11 - rejected replay checks the URL before navigation events arrive
+  ---
+  duration_ms: 0.4426
+  type: 'test'
+  ...
+# Subtest: rejected replay checks the source before metadata events arrive
+ok 12 - rejected replay checks the source before metadata events arrive
+  ---
+  duration_ms: 0.3952
+  type: 'test'
+  ...
+# Subtest: emptying the same source invalidates its previous replay request
+ok 13 - emptying the same source invalidates its previous replay request
+  ---
+  duration_ms: 0.3754
+  type: 'test'
+  ...
+# Subtest: detaching and reattaching a video invalidates its previous replay request
+ok 14 - detaching and reattaching a video invalidates its previous replay request
+  ---
+  duration_ms: 0.4241
+  type: 'test'
+  ...
+# Subtest: SEC-01: extension capabilities remain restricted to the reviewed manifest
+ok 15 - SEC-01: extension capabilities remain restricted to the reviewed manifest
+  ---
+  duration_ms: 1.0122
+  type: 'test'
+  ...
+# Subtest: SEC-02: reviewed script has no listed network, HTML execution, or privileged API sinks
+ok 16 - SEC-02: reviewed script has no listed network, HTML execution, or privileged API sinks
+  ---
+  duration_ms: 0.3596
+  type: 'test'
+  ...
+# Subtest: SEC-03: CI token is read-only and no privileged PR trigger is introduced
+ok 17 - SEC-03: CI token is read-only and no privileged PR trigger is introduced
+  ---
+  duration_ms: 0.8941
+  type: 'test'
+  ...
+# Subtest: SEC-04: shipped files contain no common credential patterns
+ok 18 - SEC-04: shipped files contain no common credential patterns
+  ---
+  duration_ms: 2.9738
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69.826

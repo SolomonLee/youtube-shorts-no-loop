@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<title>Shorts security fixture — controlled local response</title>
+<style>
+  body { margin: 0; padding: 24px; background: #171717; color: white; font: 16px system-ui; }
+  h1 { font-size: 20px; }
+  video { width: 240px; height: 360px; background: #333; }
+  #sidebar { position: absolute; left: 320px; top: 120px; }
+</style>
+<h1>受控測試頁 · 非真實 YouTube 內容</h1>
+<p>原始套件透過 Chrome 擴充功能機制載入；影片為自行產生的測試圖樣。</p>
+<ytd-shorts id="shorts-container">
+  <ytd-reel-video-renderer is-active>
+    <video id="current" src="/security-fixture.webm" loop muted playsinline preload="auto" controls></video>
+  </ytd-reel-video-renderer>
+</ytd-shorts>
+<div id="sidebar">與影片無關的頁面內容</div>
+</html>

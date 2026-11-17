@@ -1,0 +1,20 @@
+{
+  "origins": {
+    "https://www.youtube.com": 49,
+    "https://i.ytimg.com": 14,
+    "https://fonts.googleapis.com": 3,
+    "https://fonts.gstatic.com": 85,
+    "https://accounts.google.com": 1,
+    "https://googleads.g.doubleclick.net": 2,
+    "null": 5,
+    "https://www.google.com": 2,
+    "https://www.gstatic.com": 11,
+    "https://static.doubleclick.net": 1,
+    "https://www.google.com.tw": 1,
+    "https://rr4---sn-ipoxu-un5el.googlevideo.com": 3,
+    "https://youtube.com": 1,
+    "https://yt3.ggpht.com": 1,
+    "https://rr2---sn-ipoxu-un5el.googlevideo.com": 1
+  },
+  "extensionInitiatedRequests": []
+}

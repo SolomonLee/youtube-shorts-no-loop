@@ -1,0 +1,11 @@
+{
+  "BR-02-native-ended.png": "766bdb7a02fdd4ea7d963b1f33bed439abd227a315177f810058434de95f9943",
+  "BR-08-inactive-video.png": "2d65a00fe2dcb144f67e50e9672709161676b2e05afb885718058df3bde18816",
+  "browser-report.json": "925ab3b99cb9ee45f19b4d66a68d96efcd5df4c154dc774d1d26584377c20768",
+  "controlled-network.json": "6977e811412ac03260c111bab68ac5f1714094d7b2f40e567de0f5abe65ea9e8",
+  "dependency-audit.json": "a01267e7d3023badd5d4b64f1d798707912523aeba3545b611eaaa83ee261353",
+  "LIVE-01-signed-out-youtube.png": "5a10a8b0e6c2ea5d1da9e3194e1483acd7c4600c27a2078c4f30e556a02e8f9b",
+  "live-network-summary.json": "a8dacac12c6d14966a696a832282ca0f80089f61d1234100b69c3b21a99271dd",
+  "static-report.json": "cf357cf47d5c8a572339a2ea6a64707c1041a484ec0ddeccfdfc58032646acc1",
+  "unit-security.tap": "5a79eb17498c378b7988362f8e712cfd68a1650e54a42657ff5a0b0f0c73f123"
+}

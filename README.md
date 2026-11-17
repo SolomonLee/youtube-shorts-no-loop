@@ -1,68 +1,95 @@
-# Shorts 播完就停
+# YouTube Shorts No Loop
 
-Chrome 擴充功能。YouTube Shorts 播完後停止自動重播；點影片畫面，或按影片正中央的「↻ 重新播放」，都可以從頭再看一次。往下滑切換另一支 Shorts，仍可正常播放。一般 YouTube 影片不套用此功能。
+English | [繁體中文](README.zh-TW.md)
 
-## 安裝
+A Chrome extension that stops YouTube Shorts from automatically replaying. When a Short ends, click the video or the replay button at its center to watch it again. Use the extension's switch to restore automatic replay whenever you want.
 
-1. 在 Chrome 網址列輸入 `chrome://extensions`。
-2. 開啟右上角「開發人員模式」。
-3. 按「載入未封裝項目」。
-4. 選擇解壓縮或下載後的套件資料夾（裡面有 `manifest.json`）。
-5. 重新整理已開啟的 YouTube 分頁，開一支 Shorts 試用。
+Scrolling to another Short works normally. Regular YouTube videos are unaffected.
 
-不需要 npm、編譯或付費服務。點 Chrome 工具列的本套件圖示，可切換「播完自動停止」。
+## Install
 
-## 開關
+1. Download the repository using **Code → Download ZIP**, then extract it.
+2. Open `chrome://extensions` in Chrome.
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select the extracted folder containing `manifest.json`.
+5. Refresh any open YouTube tabs and open a Short.
 
-- 預設開啟：Shorts 播完後停止，可點影片或中央按鈕重新播放。
-- 關閉：恢復 YouTube 原本的自動重播；已被本套件停住的影片會立即從頭播放。自己手動暫停的影片仍維持暫停。
-- 開關即時套用至同一瀏覽器設定檔中的 YouTube 分頁，不用重新整理，並在下次開啟瀏覽器時保留。
-- 若工具列沒有圖示，可從 Chrome 的拼圖圖示找到「Shorts 播完就停」，也可以將它固定在工具列。
-- 僅使用 `storage` 權限在本機保存 `enabled` 開關值，不同步到雲端，也不保存影片、帳號或瀏覽紀錄。一般 YouTube 影片不受開關影響。
+No build step, npm installation, or paid service is required to use the extension.
 
-從 GitHub 下載：儲存庫頁面按 **Code → Download ZIP**，解壓縮後依上面的步驟載入資料夾。
+The extension currently uses Traditional Chinese labels. Its name in Chrome is **Shorts 播完就停**.
 
-## 更新已安裝的版本
+## Turn auto-stop on or off
 
-更新同一資料夾內的檔案後，到 `chrome://extensions` 找到「Shorts 播完就停」，按重新載入，再重新整理 YouTube 分頁。
+Click the extension's icon in the Chrome toolbar and toggle **播完自動停止** (“Stop automatically when playback ends”). If the icon is hidden, find **Shorts 播完就停** in Chrome's puzzle-piece menu and optionally pin it to the toolbar.
 
-## 行為與限制
+| Switch | Behavior |
+| --- | --- |
+| On — default | Shorts stop when they end. Click the video or **↻ 重新播放** (“Replay”) to restart. |
+| Off | Restores YouTube's automatic replay. A video stopped by the extension immediately restarts from the beginning. Videos you paused manually stay paused. |
 
-- 使用 Chrome Manifest V3；只在桌面版 YouTube 網站載入。
-- 注入範圍包含 YouTube 首頁，以支援從首頁點進 Shorts 的站內導覽。程式只處理 `/shorts/…` 頁面中的 Shorts 播放器。
-- 移除影片的原生循環播放，並在 `ended` 事件後阻擋播放器自動重啟。播完後可點影片畫面，或使用套件的「重新播放」按鈕。播放中的點擊仍使用 YouTube 原本的暫停／繼續操作。
-- 不蒐集瀏覽紀錄、不傳送資料；僅使用 Chrome `storage` 權限保存本機開關設定。
-- 1.0.0 已由使用者回報在真實 YouTube 頁面運作正常。1.0.1 已完成真實瀏覽器與一支公開 YouTube Shorts 的未登入測試，範圍與證據見下方安全檢查報告。YouTube 播放器結構改變時可能需要調整。
+Changes apply immediately to open YouTube tabs in the same Chrome profile, without refreshing. Your choice is saved locally and retained when you restart the browser.
 
-## 驗證
+While a video is playing, clicking it still uses YouTube's normal pause/resume behavior.
 
-安裝 Node.js 22 或更新版本，在此資料夾執行：
+## Update an existing installation
+
+Replace the files in the folder you originally loaded. Open `chrome://extensions`, find **Shorts 播完就停**, click **Reload**, and refresh your YouTube tabs.
+
+To fully disable or remove the extension, use its controls on `chrome://extensions`, then refresh YouTube.
+
+## Privacy and permissions
+
+- Uses Chrome Manifest V3.
+- Runs on desktop `youtube.com` and `www.youtube.com`. Content scripts also load on the homepage to support YouTube's navigation into Shorts, but playback changes apply only to Shorts players on `/shorts/…` pages.
+- Requests only the `storage` API permission to save a single `enabled` setting in `chrome.storage.local`.
+- Does not sync settings to the cloud, collect browsing history, save account or video information, or transmit data.
+- Has no third-party runtime dependencies. Node.js and Playwright are used only for development and testing.
+
+## Verification and limitations
+
+Version **1.1.0** passed 33 automated regression tests and controlled Chromium checks covering the switch, persistence after reload, changes across two tabs, replay behavior, and button positioning.
+
+The controlled browser checks use a test fixture served through intercepted HTTPS responses, rather than real YouTube content. The latest signed-out YouTube smoke test timed out while waiting for a video to become ready and is recorded as **blocked**, not passed. A previous signed-out test of one public Short passed for version 1.0.1; that result does not validate every behavior in 1.1.0.
+
+Known limitations:
+
+- YouTube player changes may require updates to this extension.
+- A synthetic end event from a hidden video can replace the replay button's target in the controlled fixture. This has not been confirmed under normal live YouTube behavior.
+- Position tracking and observing page changes add work whose impact depends on the page. Noticeable slowdown has not been established.
+- Passing tests and pattern scans do not guarantee the absence of vulnerabilities or secrets.
+
+### Run tests
+
+With Node.js 22 or newer, run from the repository folder:
 
 ```sh
 npm test
 node --check content.js
+node --check popup.js
+node tests/security/verify-evidence.cjs
 ```
 
-測試涵蓋播放結束、手動重播、一般影片、切換 Shorts，以及舊播放請求延遲失敗的競態。這是模擬 DOM 的回歸測試，不能取代真實網站測試。
+These checks do not require installing Playwright. For browser test setup and evidence collection, see [SECURITY.md](SECURITY.md).
 
-Chrome 手動驗收：
+### Manual Chrome checks
 
-1. 直接開 Shorts，完整播完，確認不自動重播。
-2. 等待數秒，再點影片畫面，確認從頭播放，且再次播完後仍會停止；另測試「重新播放」按鈕。
-3. 向下、向上切換影片，確認新影片可以正常播放。
-4. 從首頁點進 Shorts，再用上一頁離開；確認一般影片仍正常。
-5. 播放中暫停、恢復、拖曳進度，確認不會提早停止。
-6. 播完後按「重新播放」並立刻切換下一支或離開 Shorts，確認新影片正常播放，且舊按鈕不會重新出現。
-7. 在擴充功能圖示內關閉「播完自動停止」，確認恢復自動重播；重新整理分頁後仍保持關閉，再開啟後恢復播完停止。
-8. 手動暫停播放中的影片後關閉開關，確認不會自行播放；在其他 YouTube 分頁確認開關同步生效。
+1. Let a Short finish and confirm it does not automatically replay.
+2. Click the video to replay it, then confirm it stops again at the end. Repeat using the centered replay button.
+3. Scroll between Shorts and confirm the next video plays normally.
+4. Enter Shorts from the homepage, then navigate back. Confirm regular videos remain unaffected.
+5. Pause, resume, and seek during playback. Confirm the extension does not stop the video early.
+6. Start a replay and immediately switch Shorts or leave the page. Confirm an old replay request cannot restore a stale button or stop the new video.
+7. Turn auto-stop off and confirm automatic replay returns. Refresh the tab and confirm the switch stays off. Turn it on again and confirm playback stops at the end.
+8. Manually pause a video before turning auto-stop off; it should stay paused. Confirm switch changes also apply to another open YouTube tab.
 
-參考：[Chrome content scripts 官方文件](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts)。
+## Security reports and evidence
 
-## 安全檢查與證據
+The detailed reports below are in Traditional Chinese.
 
-- [檢查流程與重跑方式](SECURITY.md)
-- [可追溯檢查表](security/CHECKLIST.md)
-- [2026-10-21 檢查報告與發現重現步驟](security/ASSESSMENT-2026-10-21.md)
-- [原始瀏覽器結果、截圖及 SHA-256](security/evidence/2026-10-21-verified/)
+- [Security process and reproduction instructions](SECURITY.md)
+- [Security checklist](security/CHECKLIST.md)
+- [Version 1.1.0 switch verification — November 17, 2026](security/ASSESSMENT-2026-11-17.md)
+- [Version 1.0.1 assessment and reproduction steps — October 21, 2026](security/ASSESSMENT-2026-10-21.md)
+- [Recorded 1.0.1 browser results, screenshots, and SHA-256 hashes](security/evidence/2026-10-21-verified/)
 
-一般安裝不需要 Node.js 或 Playwright。`package.json` 與 `package-lock.json` 僅供開發及測試使用；擴充功能執行時沒有第三方套件依賴。
+Reference: [Chrome content scripts documentation](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts).

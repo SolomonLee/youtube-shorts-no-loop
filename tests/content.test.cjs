@@ -39,7 +39,7 @@ function setup(pathname = '/shorts/first', options = {}) {
       runtime: {},
       storage: {
         local: { get(defaults, callback) {
-          initialRead = () => callback({ enabled: options.enabled ?? true });
+          initialRead = () => callback({ enabled: options.enabled ?? true, language: options.language ?? 'zh-TW' });
           if (!options.delayRead) initialRead();
         } },
         onChanged: { addListener(callback) { storageListener = callback; } }
@@ -53,6 +53,7 @@ function setup(pathname = '/shorts/first', options = {}) {
   return {
     video, buttons,
     setEnabled(value) { storageListener({ enabled: { newValue: value } }, 'local'); },
+    setLanguage(value) { storageListener({ language: { newValue: value } }, 'local'); },
     finishRead() { initialRead(); },
     clickPlayer({ control = false, outside = false, button = 0 } = {}) {
       const event = new Event('click', { cancelable: true });
@@ -86,6 +87,37 @@ function pendingReplay(app) {
     await Promise.resolve();
   };
 }
+
+test('saved English translates replay and live language changes preserve completion state', () => {
+  const app = setup('/shorts/first', { language: 'en' });
+  app.emit('ended');
+  const button = [...app.buttons][0];
+  assert.equal(button.textContent, '↻ Replay');
+  assert.equal(button.lang, 'en');
+  app.setLanguage('zh-TW');
+  assert.equal([...app.buttons][0], button);
+  assert.equal(button.textContent, '↻ 重新播放');
+  assert.equal(app.video.paused, true);
+  assert.equal(app.video.loop, false);
+});
+
+test('language updates do not cancel a delayed enabled setting read', () => {
+  const app = setup('/shorts/first', { delayRead: true });
+  app.setLanguage('en');
+  app.finishRead();
+  assert.equal(app.video.loop, false);
+  app.emit('ended');
+  assert.equal([...app.buttons][0].textContent, '↻ Replay');
+});
+
+test('unknown or removed language values fall back to Traditional Chinese', () => {
+  const app = setup('/shorts/first', { language: 'unexpected' });
+  app.emit('ended');
+  assert.equal([...app.buttons][0].textContent, '↻ 重新播放');
+  app.setLanguage('en');
+  app.setLanguage(undefined);
+  assert.equal([...app.buttons][0].textContent, '↻ 重新播放');
+});
 
 test('saved disabled setting leaves the native player untouched on load', async () => {
   const app = setup('/shorts/first', { enabled: false });

@@ -8,13 +8,20 @@
   <script src="popup.js" defer></script>
 </head>
 <body>
-  <h1>Shorts 播完就停</h1>
+  <h1 id="heading">Shorts 播完就停</h1>
+  <div class="language-setting">
+    <label for="language" id="language-label">語言 / Language</label>
+    <select id="language" disabled>
+      <option value="zh-TW">繁體中文</option>
+      <option value="en">English</option>
+    </select>
+  </div>
   <label class="setting" for="enabled">
-    <span>播完自動停止</span>
+    <span id="enabled-label">播完自動停止</span>
     <input id="enabled" type="checkbox" role="switch" aria-describedby="status" disabled>
     <span class="switch" aria-hidden="true"></span>
   </label>
   <p id="status" role="status" aria-live="polite">讀取設定中…</p>
-  <p class="hint">套用至所有 YouTube 分頁，並記住你的選擇。</p>
+  <p class="hint" id="hint">套用至所有 YouTube 分頁，並記住你的選擇。</p>
 </body>
 </html>

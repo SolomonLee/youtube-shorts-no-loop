@@ -8,6 +8,8 @@
   let replayFrame;
   let enabled = false;
   let settingsVersion = 0;
+  let languageVersion = 0;
+  let language = "zh-TW";
   const shortsPath = () => /^\/shorts\/[^/]+/.exec(location.pathname)?.[0] || "";
   const isShort = (video) => Boolean(shortsPath() && video.closest(
     "ytd-reel-video-renderer, ytd-shorts, #shorts-container"
@@ -69,13 +71,20 @@
     const button = document.createElement("button");
     button.className = "shorts-no-loop-replay";
     button.type = "button";
-    button.textContent = "↻ 重新播放";
-    button.title = "已播完，按一下再看一次";
     button.video = video;
     button.addEventListener("click", () => replay(video, state));
     document.documentElement.append(button);
     replayButton = button;
+    setLanguage(language);
     positionReplay();
+  }
+
+  function setLanguage(value) {
+    language = value === "en" ? "en" : "zh-TW";
+    if (!replayButton) return;
+    replayButton.textContent = language === "en" ? "↻ Replay" : "↻ 重新播放";
+    replayButton.title = language === "en" ? "Playback ended. Click to watch again." : "已播完，按一下再看一次";
+    replayButton.lang = language === "en" ? "en" : "zh-Hant";
   }
 
   function attach(video) {
@@ -177,13 +186,21 @@
   document.addEventListener("yt-navigate-finish", scheduleSync);
   window.addEventListener("popstate", scheduleSync);
   chrome.storage.onChanged.addListener((changes, area) => {
-    if (area !== "local" || !changes.enabled) return;
-    settingsVersion++;
-    setEnabled(changes.enabled.newValue !== false);
+    if (area !== "local") return;
+    if (changes.language) {
+      languageVersion++;
+      setLanguage(changes.language.newValue);
+    }
+    if (changes.enabled) {
+      settingsVersion++;
+      setEnabled(changes.enabled.newValue !== false);
+    }
   });
   const readVersion = settingsVersion;
-  chrome.storage.local.get({ enabled: true }, (settings) => {
+  const readLanguageVersion = languageVersion;
+  chrome.storage.local.get({ enabled: true, language: "zh-TW" }, (settings) => {
     const failed = chrome.runtime.lastError;
+    if (readLanguageVersion === languageVersion) setLanguage(failed ? "zh-TW" : settings.language);
     // A newer toggle takes priority over a delayed initial read.
     if (readVersion === settingsVersion) setEnabled(Boolean(failed) || settings.enabled !== false);
   });

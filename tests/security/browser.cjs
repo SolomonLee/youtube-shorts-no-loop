@@ -202,6 +202,42 @@ async function controlled() {
       assert.equal(ends,2);
       return {centeredAfterLayoutChange:true,nativeEnds:ends};
     });
+    await check('BR-11', 'Language selection persists and updates replay buttons across tabs', async () => {
+      await fresh();
+      await page.locator('#current').evaluate(v => v.dispatchEvent(new Event('ended')));
+      await waitButton(page);
+      const other = await context.newPage();
+      await other.goto('https://www.youtube.com/shorts/language-tab');
+      await other.waitForFunction(() => !document.querySelector('#current').loop);
+      await other.locator('#current').evaluate(v => v.dispatchEvent(new Event('ended')));
+      const popup = await context.newPage();
+      try {
+        await popup.setViewportSize({width:320,height:300});
+        await popup.emulateMedia({colorScheme:'dark'});
+        await popup.goto(`chrome-extension://${report.extensionId}/popup.html`);
+        await popup.locator('#language').selectOption('en');
+        await popup.getByRole('heading', {name:'YouTube Shorts No Loop',exact:true}).waitFor();
+        await page.getByRole('button', {name:'↻ Replay',exact:true}).waitFor();
+        await other.getByRole('button', {name:'↻ Replay',exact:true}).waitFor();
+        assert.equal(await page.locator('#current').evaluate(v=>v.paused&&!v.loop),true);
+        await popup.locator('body').screenshot({path:path.join(evidence,'BR-11-popup-en.png')});
+        await popup.reload();
+        await popup.waitForFunction(()=>!document.querySelector('#language').disabled);
+        assert.equal(await popup.locator('#language').inputValue(),'en');
+        assert.equal(await popup.locator('html').getAttribute('lang'),'en');
+        await other.reload();
+        await other.waitForFunction(()=>!document.querySelector('#current').loop);
+        await other.locator('#current').evaluate(v=>v.dispatchEvent(new Event('ended')));
+        await other.getByRole('button', {name:'↻ Replay',exact:true}).waitFor();
+        await popup.locator('#language').selectOption('zh-TW');
+        await page.getByRole('button', {name:'↻ 重新播放',exact:true}).waitFor();
+        await other.getByRole('button', {name:'↻ 重新播放',exact:true}).waitFor();
+        await popup.getByRole('heading', {name:'Shorts 播完就停',exact:true}).waitFor();
+        await popup.locator('body').screenshot({path:path.join(evidence,'BR-11-popup-zh-TW.png')});
+        assert.equal(await popup.getByRole('switch').isChecked(),true);
+        return {persisted:true,multipleTabs:true,playbackUnchanged:true,screenshots:['BR-11-popup-en.png','BR-11-popup-zh-TW.png']};
+      } finally { await popup.close(); await other.close(); }
+    });
     await check('BR-03', 'Nonmatching origin and regular watch page are untouched', async () => {
       const measurements = [];
       for (const url of ['https://example.invalid/shorts/security-fixture','https://www.youtube.com/watch?v=security-fixture']) {

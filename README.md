@@ -16,11 +16,11 @@ Scrolling to another Short works normally. Regular YouTube videos are unaffected
 
 No build step, npm installation, or paid service is required to use the extension.
 
-The extension currently uses Traditional Chinese labels. Its name in Chrome is **Shorts 播完就停**.
+The popup supports **English** and **Traditional Chinese**. Its name in Chrome is **Shorts 播完就停**.
 
 ## Turn auto-stop on or off
 
-Click the extension's icon in the Chrome toolbar and toggle **播完自動停止** (“Stop automatically when playback ends”). If the icon is hidden, find **Shorts 播完就停** in Chrome's puzzle-piece menu and optionally pin it to the toolbar.
+Click the extension's icon in the Chrome toolbar and toggle **Stop after playback / 播完自動停止**. If the icon is hidden, find **Shorts 播完就停** in Chrome's puzzle-piece menu and optionally pin it to the toolbar.
 
 | Switch | Behavior |
 | --- | --- |
@@ -30,6 +30,10 @@ Click the extension's icon in the Chrome toolbar and toggle **播完自動停止
 Changes apply immediately to open YouTube tabs in the same Chrome profile, without refreshing. Your choice is saved locally and retained when you restart the browser.
 
 While a video is playing, clicking it still uses YouTube's normal pause/resume behavior.
+
+## Choose a language
+
+Open the extension popup and use the **Language / 語言** menu to select **English** or **繁體中文**. The default is Traditional Chinese. Your selection updates the popup and replay buttons in open YouTube tabs immediately, and is saved for future sessions. Changing languages does not change the auto-stop switch or interrupt playback.
 
 ## Update an existing installation
 
@@ -41,15 +45,15 @@ To fully disable or remove the extension, use its controls on `chrome://extensio
 
 - Uses Chrome Manifest V3.
 - Runs on desktop `youtube.com` and `www.youtube.com`. Content scripts also load on the homepage to support YouTube's navigation into Shorts, but playback changes apply only to Shorts players on `/shorts/…` pages.
-- Requests only the `storage` API permission to save a single `enabled` setting in `chrome.storage.local`.
+- Requests only the `storage` API permission to save the `enabled` and `language` preferences in `chrome.storage.local`.
 - Does not sync settings to the cloud, collect browsing history, save account or video information, or transmit data.
 - Has no third-party runtime dependencies. Node.js and Playwright are used only for development and testing.
 
 ## Verification and limitations
 
-Version **1.1.0** passed 33 automated regression tests and controlled Chromium checks covering the switch, persistence after reload, changes across two tabs, replay behavior, and button positioning.
+Version **1.2.0** passed 39 automated regression tests and controlled Chromium checks covering the auto-stop switch, language selection, persistence after reload, changes across two tabs, replay behavior, and button positioning.
 
-The controlled browser checks use a test fixture served through intercepted HTTPS responses, rather than real YouTube content. The latest signed-out YouTube smoke test timed out while waiting for a video to become ready and is recorded as **blocked**, not passed. A previous signed-out test of one public Short passed for version 1.0.1; that result does not validate every behavior in 1.1.0.
+The controlled browser checks use a test fixture served through intercepted HTTPS responses, rather than real YouTube content. The most recent signed-out YouTube smoke test, attempted with version 1.1.0, timed out while waiting for a video to become ready and is recorded as **blocked**, not passed. A previous signed-out test of one public Short passed for version 1.0.1; that result does not validate every behavior in 1.2.0.
 
 Known limitations:
 
@@ -89,7 +93,12 @@ The detailed reports below are in Traditional Chinese.
 - [Security process and reproduction instructions](SECURITY.md)
 - [Security checklist](security/CHECKLIST.md)
 - [Version 1.1.0 switch verification — November 17, 2026](security/ASSESSMENT-2026-11-17.md)
+- [Version 1.2.0 language verification — November 17, 2026](security/ASSESSMENT-2026-11-17-i18n.md)
 - [Version 1.0.1 assessment and reproduction steps — October 21, 2026](security/ASSESSMENT-2026-10-21.md)
 - [Recorded 1.0.1 browser results, screenshots, and SHA-256 hashes](security/evidence/2026-10-21-verified/)
 
 Reference: [Chrome content scripts documentation](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts).
+
+## Chrome Web Store status
+
+This project has not been submitted to the Chrome Web Store. See the [publishing feasibility and remaining requirements](docs/CHROME-WEB-STORE.zh-TW.md) (Traditional Chinese) for account requirements, listing assets, privacy disclosures, packaging, and testing work still needed.

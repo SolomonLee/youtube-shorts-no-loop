@@ -6,7 +6,7 @@ const path = require('node:path');
 
 const source = readFileSync(path.join(__dirname, '../content.js'), 'utf8');
 
-function setup(pathname = '/shorts/first') {
+function setup(pathname = '/shorts/first', options = {}) {
   const video = new EventTarget();
   Object.assign(video, {
     loop: true, currentSrc: 'first.mp4', currentTime: 0,
@@ -30,9 +30,21 @@ function setup(pathname = '/shorts/first') {
     }
   });
   const location = { pathname };
+  let storageListener;
+  let initialRead;
   vm.runInNewContext(source, {
     document, location, window: new EventTarget(), queueMicrotask,
     requestAnimationFrame: () => 1, cancelAnimationFrame: () => {},
+    chrome: {
+      runtime: {},
+      storage: {
+        local: { get(defaults, callback) {
+          initialRead = () => callback({ enabled: options.enabled ?? true });
+          if (!options.delayRead) initialRead();
+        } },
+        onChanged: { addListener(callback) { storageListener = callback; } }
+      }
+    },
     MutationObserver: class {
       constructor(callback) { mutation = callback; }
       observe() {}
@@ -40,6 +52,8 @@ function setup(pathname = '/shorts/first') {
   });
   return {
     video, buttons,
+    setEnabled(value) { storageListener({ enabled: { newValue: value } }, 'local'); },
+    finishRead() { initialRead(); },
     clickPlayer({ control = false, outside = false, button = 0 } = {}) {
       const event = new Event('click', { cancelable: true });
       const player = { contains: (element) => !outside && element === video };
@@ -72,6 +86,81 @@ function pendingReplay(app) {
     await Promise.resolve();
   };
 }
+
+test('saved disabled setting leaves the native player untouched on load', async () => {
+  const app = setup('/shorts/first', { enabled: false });
+  assert.equal(app.video.loop, true);
+  app.emit('ended');
+  assert.equal(app.buttons.size, 0);
+  await app.video.play();
+  assert.equal(app.video.paused, false);
+});
+
+test('disabling after completion restores loop and resumes playback immediately', () => {
+  const app = setup();
+  app.video.currentTime = 10;
+  app.emit('ended');
+  app.setEnabled(false);
+  assert.equal(app.video.loop, true);
+  assert.equal(app.video.currentTime, 0);
+  assert.equal(app.video.paused, false);
+  assert.equal(app.buttons.size, 0);
+  app.emit('ended');
+  assert.equal(app.buttons.size, 0);
+  app.setEnabled(true);
+  assert.equal(app.video.loop, false);
+  app.emit('ended');
+  assert.equal(app.video.paused, true);
+  assert.equal(app.buttons.size, 1);
+});
+
+test('disabling during manual pause preserves the pause and playback position', () => {
+  const app = setup();
+  app.video.currentTime = 4;
+  app.video.pause();
+  app.setEnabled(false);
+  assert.equal(app.video.loop, true);
+  assert.equal(app.video.paused, true);
+  assert.equal(app.video.currentTime, 4);
+});
+
+test('disabled mode still allows SPA navigation and enabling on another Short', async () => {
+  const app = setup();
+  app.setEnabled(false);
+  await app.navigate('/shorts/second');
+  app.emit('ended');
+  assert.equal(app.buttons.size, 0);
+  app.setEnabled(true);
+  app.emit('ended');
+  assert.equal(app.buttons.size, 1);
+});
+
+test('new toggle wins over a delayed initial storage read', () => {
+  const app = setup('/shorts/first', { delayRead: true });
+  app.setEnabled(false);
+  app.finishRead();
+  assert.equal(app.video.loop, true);
+  app.emit('ended');
+  assert.equal(app.buttons.size, 0);
+});
+
+test('disabling cannot revive a stale replay failure', async () => {
+  const app = setup();
+  const rejectReplay = pendingReplay(app);
+  app.setEnabled(false);
+  await rejectReplay();
+  assert.equal(app.buttons.size, 0);
+  assert.equal(app.video.loop, true);
+});
+
+test('disabling after an unannounced navigation does not rewind a reused video', () => {
+  const app = setup();
+  app.emit('ended');
+  app.setPath('/shorts/second');
+  app.video.currentTime = 3;
+  app.setEnabled(false);
+  assert.equal(app.video.currentTime, 3);
+});
 
 test('plays through to ended, blocks automatic restart, permits explicit replay', async () => {
   const app = setup();

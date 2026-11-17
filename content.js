@@ -6,6 +6,8 @@
   let queued = false;
   let replayButton;
   let replayFrame;
+  let enabled = false;
+  let settingsVersion = 0;
   const shortsPath = () => /^\/shorts\/[^/]+/.exec(location.pathname)?.[0] || "";
   const isShort = (video) => Boolean(shortsPath() && video.closest(
     "ytd-reel-video-renderer, ytd-shorts, #shorts-container"
@@ -44,7 +46,7 @@
   }
 
   function replay(video, state) {
-    if (states.get(video) !== state || !isShort(video) || !video.isConnected) return;
+    if (!enabled || states.get(video) !== state || !isShort(video) || !video.isConnected) return;
     state.stopped = false;
     hideReplay(video);
     video.currentTime = 0;
@@ -82,7 +84,7 @@
     const handle = (event) => {
       // YouTube reuses video elements while navigating between Shorts.
       syncRoute();
-      if (!isShort(video)) return;
+      if (!enabled || !isShort(video)) return;
       if (event.type === "emptied" || state.source !== video.currentSrc) reset(video, state);
       disableLoop(video, state);
       if (event.type === "ended") {
@@ -123,10 +125,10 @@
     queued = false;
     syncRoute();
     for (const [video, state] of states) {
-      if (!video.isConnected || !isShort(video)) detach(video, state);
+      if (!enabled || !video.isConnected || !isShort(video)) detach(video, state);
       else disableLoop(video, state);
     }
-    if (route) document.querySelectorAll("video").forEach((video) => {
+    if (enabled && route) document.querySelectorAll("video").forEach((video) => {
       if (isShort(video)) attach(video);
     });
   }
@@ -135,6 +137,18 @@
     if (queued) return;
     queued = true;
     queueMicrotask(sync);
+  }
+
+  function setEnabled(value) {
+    const candidate = !value ? replayButton?.video : undefined;
+    const resume = candidate && route === shortsPath() &&
+      states.get(candidate)?.source === candidate.currentSrc ? candidate : undefined;
+    enabled = value;
+    sync();
+    if (resume?.isConnected && isShort(resume)) {
+      resume.currentTime = 0;
+      resume.play().catch(() => {});
+    }
   }
 
   document.addEventListener("click", (event) => {
@@ -162,5 +176,15 @@
   });
   document.addEventListener("yt-navigate-finish", scheduleSync);
   window.addEventListener("popstate", scheduleSync);
-  sync();
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local" || !changes.enabled) return;
+    settingsVersion++;
+    setEnabled(changes.enabled.newValue !== false);
+  });
+  const readVersion = settingsVersion;
+  chrome.storage.local.get({ enabled: true }, (settings) => {
+    const failed = chrome.runtime.lastError;
+    // A newer toggle takes priority over a delayed initial read.
+    if (readVersion === settingsVersion) setEnabled(Boolean(failed) || settings.enabled !== false);
+  });
 })();

@@ -4,11 +4,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '../..');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-const source = fs.readFileSync(path.join(root, 'content.js'), 'utf8');
 
 test('SEC-01: extension capabilities remain restricted to the reviewed manifest', () => {
   assert.equal(manifest.manifest_version, 3);
-  assert.deepEqual(manifest.permissions || [], []);
+  assert.deepEqual(manifest.permissions || [], ['storage']);
+  assert.deepEqual(manifest.action, { default_title: 'Shorts 播完就停', default_popup: 'popup.html' });
+  for (const file of ['popup.html', 'popup.js', 'popup.css']) assert.ok(fs.existsSync(path.join(root, file)), file);
   assert.deepEqual(manifest.host_permissions || [], []);
   assert.equal(manifest.background, undefined);
   assert.equal(manifest.externally_connectable, undefined);
@@ -22,16 +23,23 @@ test('SEC-01: extension capabilities remain restricted to the reviewed manifest'
   assert.deepEqual(script.css, ['content.css']);
 });
 
-test('SEC-02: reviewed script has no listed network, HTML execution, or privileged API sinks', () => {
+test('SEC-02: shipped scripts have no network or execution sinks and use only reviewed Chrome APIs', () => {
   // A narrow regression guard, not a JavaScript parser or proof against obfuscation.
   const sinks = [
     /\bfetch\s*\(/, /\bXMLHttpRequest\b/, /\bWebSocket\b/, /\bsendBeacon\s*\(/,
     /\beval\s*\(/, /\bFunction\s*\(/, /\bimport\s*\(/,
     /\.\s*(?:innerHTML|outerHTML)\s*=/, /\binsertAdjacentHTML\s*\(/,
-    /document\s*\.\s*(?:write|writeln|cookie)\b/, /\bchrome\s*\./,
+    /document\s*\.\s*(?:write|writeln|cookie)\b/,
     /\bpostMessage\s*\(/, /\b(?:localStorage|sessionStorage|indexedDB)\b/
   ];
-  for (const sink of sinks) assert.doesNotMatch(source, sink);
+  for (const file of ['content.js', 'popup.js']) {
+    const code = fs.readFileSync(path.join(root, file), 'utf8');
+    for (const sink of sinks) assert.doesNotMatch(code, sink, file);
+    const remaining = code.replace(/\bchrome\.storage\.local\.(?:get|set)\b/g, '')
+      .replace(/\bchrome\.storage\.onChanged\.addListener\b/g, '')
+      .replace(/\bchrome\.runtime\.lastError\b/g, '');
+    assert.doesNotMatch(remaining, /\bchrome\s*\./, file);
+  }
 });
 
 test('SEC-03: CI token is read-only and no privileged PR trigger is introduced', () => {
@@ -43,7 +51,7 @@ test('SEC-03: CI token is read-only and no privileged PR trigger is introduced',
 });
 
 test('SEC-04: shipped files contain no common credential patterns', () => {
-  const files = ['content.js', 'content.css', 'manifest.json', '.github/workflows/test.yml'];
+  const files = ['content.js', 'content.css', 'popup.js', 'popup.html', 'popup.css', 'manifest.json', '.github/workflows/test.yml'];
   const patterns = [
     /\bgh[pousr]_[A-Za-z0-9]{30,}\b/,
     /\bgithub_pat_[A-Za-z0-9_]{30,}\b/,

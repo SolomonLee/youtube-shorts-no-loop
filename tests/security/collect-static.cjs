@@ -10,7 +10,7 @@ const git=(...args)=>execFileSync('git',[...gitArgs,...args],{cwd:root,encoding:
 const hash=data=>crypto.createHash('sha256').update(data).digest('hex');
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
 const workflow=fs.readFileSync(path.join(root,'.github/workflows/test.yml'),'utf8');
-const tests=spawnSync(process.execPath,['--test','tests/content.test.cjs','tests/security/static.test.cjs'],{cwd:root,encoding:'utf8'});
+const tests=spawnSync(process.execPath,['--test','tests/content.test.cjs','tests/popup.test.cjs','tests/security/static.test.cjs'],{cwd:root,encoding:'utf8'});
 fs.writeFileSync(path.join(output,'unit-security.tap'),tests.stdout+(tests.stderr||''));
 const rules={
   githubToken:/\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})\b/,

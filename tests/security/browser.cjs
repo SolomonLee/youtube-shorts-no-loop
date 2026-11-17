@@ -14,7 +14,7 @@ fs.mkdirSync(evidence, { recursive: true });
 fs.mkdirSync(path.join(root, 'dist/security'), { recursive: true });
 const hash = (data) => crypto.createHash('sha256').update(data).digest('hex');
 const fileHashes = (files) => Object.fromEntries(files.map(f => [f, hash(fs.readFileSync(path.join(root, f)))]));
-const assessedFiles = ['manifest.json', 'content.js', 'content.css', '.github/workflows/test.yml'];
+const assessedFiles = ['manifest.json', 'content.js', 'content.css', 'popup.html', 'popup.css', 'popup.js', '.github/workflows/test.yml'];
 const sourceHashes = fileHashes(assessedFiles);
 const baseline = execFileSync('git', ['-c', `safe.directory=${root.replaceAll('\\', '/')}`, 'rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 const report = {
@@ -104,6 +104,7 @@ async function controlled() {
   const clip = fs.readFileSync(path.join(__dirname, 'fixtures/clip.webm'));
   await context.route('**/*', async route => {
     const url = new URL(route.request().url());
+    if (url.protocol === 'chrome-extension:') return route.continue();
     attempted.push({origin:url.origin, pathname:url.pathname, type:route.request().resourceType()});
     if (!['https://www.youtube.com', 'https://youtube.com', 'https://example.invalid'].includes(url.origin)) return route.abort();
     if (url.pathname === '/security-fixture.webm') return route.fulfill({contentType:'video/webm', body:clip});
@@ -129,7 +130,7 @@ async function controlled() {
       await fresh();
       const identity = await isolated(obs, '({id:chrome.runtime.id, version:chrome.runtime.getManifest().version, permissions:chrome.runtime.getManifest().permissions || []})');
       assert.equal(identity.version, report.extensionVersion);
-      assert.deepEqual(identity.permissions, []);
+      assert.deepEqual(identity.permissions, ['storage']);
       report.extensionId = identity.id;
       return {identity, loopDisabled:await page.locator('#current').evaluate(v=>!v.loop)};
     });
@@ -145,6 +146,61 @@ async function controlled() {
       assert.equal(events.filter(e=>e.type==='ended' && e.trusted).length, 2);
       await page.screenshot({path:path.join(evidence,'BR-02-native-ended.png')});
       return {first, events, screenshot:'BR-02-native-ended.png'};
+    });
+    await check('BR-09', 'Popup switch restores automatic replay and persists across reload', async () => {
+      await fresh();
+      await page.locator('#current').evaluate(v => v.play());
+      await waitButton(page);
+      const other = await context.newPage();
+      await other.goto('https://www.youtube.com/shorts/second-tab');
+      await other.waitForFunction(() => !document.querySelector('#current').loop);
+      const popup = await context.newPage();
+      try {
+        await popup.goto(`chrome-extension://${report.extensionId}/popup.html`);
+        const toggle = popup.getByRole('switch', {name:'播完自動停止'});
+        await toggle.waitFor();
+        await popup.waitForFunction(() => !document.querySelector('#enabled').disabled);
+        assert.equal(await toggle.isChecked(), true);
+        await toggle.uncheck();
+        await page.waitForFunction(() => document.querySelector('#current').loop && !document.querySelector('#current').paused);
+        await other.waitForFunction(() => document.querySelector('#current').loop);
+        assert.equal(await page.locator('.shorts-no-loop-replay').count(), 0);
+        await page.reload();
+        assert.equal(await isolated(obs, 'chrome.storage.local.get({enabled:true}).then(s=>s.enabled)'), false);
+        await page.locator('#current').evaluate(async v => { await v.play(); v.dispatchEvent(new Event('ended')); });
+        assert.equal(await page.locator('#current').evaluate(v => v.loop && !v.paused), true);
+        await popup.reload();
+        await popup.waitForFunction(() => !document.querySelector('#enabled').disabled);
+        assert.equal(await toggle.isChecked(), false);
+        await popup.screenshot({path:path.join(evidence,'BR-09-popup-disabled.png')});
+        await toggle.check();
+        await page.waitForFunction(() => !document.querySelector('#current').loop);
+        await other.waitForFunction(() => !document.querySelector('#current').loop);
+        await waitButton(page);
+        return {disabledSurvivedReload:true,enabledAgain:true,multipleTabs:true,screenshot:'BR-09-popup-disabled.png'};
+      } finally { await popup.close(); await other.close(); }
+    });
+    await check('BR-10', 'Replay button tracks the video center and the video surface replays', async () => {
+      await fresh();
+      await page.locator('#current').evaluate(v => v.play());
+      await waitButton(page);
+      const centered = () => page.evaluate(() => {
+        const v=document.querySelector('#current').getBoundingClientRect();
+        const b=document.querySelector('.shorts-no-loop-replay').getBoundingClientRect();
+        return Math.abs(v.left+v.width/2-b.left-b.width/2)<1 && Math.abs(v.top+v.height/2-b.top-b.height/2)<1;
+      });
+      assert.equal(await centered(),true);
+      await page.locator('#current').evaluate(v => { v.style.marginLeft='100px'; v.style.height='300px'; });
+      await page.waitForFunction(() => {
+        const v=document.querySelector('#current').getBoundingClientRect();
+        const b=document.querySelector('.shorts-no-loop-replay').getBoundingClientRect();
+        return Math.abs(v.left+v.width/2-b.left-b.width/2)<1 && Math.abs(v.top+v.height/2-b.top-b.height/2)<1;
+      });
+      await page.locator('#current').click({position:{x:30,y:30}});
+      await waitButton(page);
+      const ends=await page.evaluate(()=>window.fixtureEvents.filter(e=>e.type==='ended'&&e.trusted).length);
+      assert.equal(ends,2);
+      return {centeredAfterLayoutChange:true,nativeEnds:ends};
     });
     await check('BR-03', 'Nonmatching origin and regular watch page are untouched', async () => {
       const measurements = [];

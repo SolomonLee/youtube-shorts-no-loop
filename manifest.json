@@ -1,8 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Shorts 播完就停",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "讓 YouTube Shorts 播完後停止重複播放，點影片畫面或按重新播放即可再看一次。",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Shorts 播完就停",
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*", "https://youtube.com/*"],

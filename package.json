@@ -1,10 +1,10 @@
 {
   "name": "youtube-shorts-no-loop",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "description": "Development and security tests for the Chrome extension.",
   "scripts": {
-    "test": "node --test tests/content.test.cjs tests/security/static.test.cjs",
+    "test": "node --test tests/content.test.cjs tests/popup.test.cjs tests/security/static.test.cjs",
     "test:security:browser": "node tests/security/browser.cjs",
     "test:security:evidence": "node tests/security/verify-evidence.cjs",
     "test:security:collect": "node tests/security/collect-static.cjs"
